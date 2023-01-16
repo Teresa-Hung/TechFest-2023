@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">556849184580-ujvvfl9lnuoa1guk52bfcjt8daq9qrne.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">556849184580</string>
+    <string name="google_api_key" translatable="false">AIzaSyCXrg27flxX71ekcnbtX5c9PqD5zkUcZnc</string>
+    <string name="google_app_id" translatable="false">1:556849184580:android:512eb68a81b3a57a636111</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCXrg27flxX71ekcnbtX5c9PqD5zkUcZnc</string>
+    <string name="google_storage_bucket" translatable="false">petpark2.appspot.com</string>
+    <string name="project_id" translatable="false">petpark2</string>
+</resources>
