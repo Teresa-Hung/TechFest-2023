@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 import 'ReportPage.dart';
+import 'styles/app_colors.dart';
 
 class ReportImage extends StatefulWidget {
   const ReportImage({Key? key}) : super(key: key);
@@ -16,11 +17,15 @@ class ReportImage extends StatefulWidget {
 class _ReportImageState extends State<ReportImage> {
 
   File? _image;
+  bool valid = false;
 
   Future getImage(source) async{
     try {
       final image = await ImagePicker().pickImage(source: source);
       if (image == null) return;
+      else{
+        valid = true;
+      }
 
       final imagePermanent = await saveImage(image.path);
 
@@ -51,7 +56,7 @@ class _ReportImageState extends State<ReportImage> {
           height: 40,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.yellow[800],),
+                backgroundColor: AppColors.pink,),
 
               onPressed:onClick,
               child: Row(
@@ -71,17 +76,17 @@ class _ReportImageState extends State<ReportImage> {
       floatingActionButton: FloatingActionButton(
 
         child: Icon(Icons.thumb_up_off_alt_rounded, color: Colors.white, size: 30.0),
-        backgroundColor: Colors.red,
-        onPressed: ()=> Navigator.push(context, MaterialPageRoute(builder: (context)=>ReportPage())),
+        backgroundColor: AppColors.pink,
+        onPressed: ()=> valid? Navigator.push(context, MaterialPageRoute(builder: (context)=>ReportPage())): null,
 
 
 
       ),
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Colors.white,
 
       appBar: AppBar(
-          title: Text("Upload A Photo",style: TextStyle(color: Colors.brown, fontWeight: FontWeight.bold) ),
-          backgroundColor: Colors.yellow[800],
+          title: Text("Upload A Photo",style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold) ),
+          backgroundColor: AppColors.pink,
       ),
 
       body: Padding(
@@ -92,7 +97,7 @@ class _ReportImageState extends State<ReportImage> {
               SizedBox(height: 40),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: _image !=null ? Image.file(_image!, width:300, height:300,  fit: BoxFit.cover): Image.asset('assets/images/frame.png', width : 300, height: 300, color: Colors.brown),
+                child: _image !=null ? Image.file(_image!, width:300, height:300,  fit: BoxFit.cover): Image.asset('assets/images/frame.png', width : 300, height: 300, color: Colors.black),
               ),
               SizedBox(height: 40),
               ImageButton(title: "  Choose from Gallery", icon: Icons.image_outlined, onClick:() =>getImage(ImageSource.gallery) ),

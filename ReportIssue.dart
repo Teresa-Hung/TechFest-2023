@@ -1,5 +1,5 @@
 // ignore: file_names
-import 'package:camera/camera.dart';
+import 'styles/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:intl/intl.dart';
@@ -20,13 +20,13 @@ class ReportIssue extends StatefulWidget {
 
 class _ReportIssueState extends State<ReportIssue> {
 
-  void _addRequest(Request val) async{
+  void _addRequest(Request val) {
 
-    CollectionReference docRef = FirebaseFirestore.instance.collection("requests");
+
 
     //var num = await FirebaseFirestore.instance.collection("requests").get().docs.length;
 
-    Map<dynamic, dynamic> request = {
+    Map<String, dynamic> request = {
       "date": val.date,
       "location": val.location,
       "description": val.description,
@@ -35,13 +35,13 @@ class _ReportIssueState extends State<ReportIssue> {
       "status": val.status,
     };
 
-   docRef.add(request);
+  FirebaseFirestore.instance.collection("requests").add(request);
 
 
   }
 
   late String locationAns;
-  late String descriptionAns;
+  String descriptionAns = "";
   late String categoryAns;
 
 
@@ -80,10 +80,10 @@ class _ReportIssueState extends State<ReportIssue> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       backgroundColor: Colors.grey[200],
+       backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text("Request for Service",style: TextStyle(color: Colors.brown, fontWeight: FontWeight.bold) ),
-          backgroundColor: Colors.yellow[800],
+          title: Text("Request for Service",style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold) ),
+          backgroundColor: AppColors.pink,
 
         ),
       body: Center(
@@ -162,7 +162,7 @@ class _ReportIssueState extends State<ReportIssue> {
                             onChanged: (val) {
                               setState(() {
                               _submitted2 = true;
-                            //  categoryAns=val;
+                              categoryAns= val.name;
                             });},
                           ),
                         ),
@@ -240,7 +240,7 @@ class _ReportIssueState extends State<ReportIssue> {
                         child: TextField(
                           controller: _controller2,
                           maxLength: 3000,
-                          onSubmitted: (String answer) => descriptionAns = answer,
+                          onSubmitted: (String answer) => answer!=null? descriptionAns = answer: descriptionAns="",
 
                           style: TextStyle(
                             color: Colors.black,
@@ -270,7 +270,7 @@ class _ReportIssueState extends State<ReportIssue> {
                         ),
                       ),
 
-                      SizedBox(height:20.0, width:280),
+                      SizedBox(height:30.0, width:280),
 
                     ],
                   ),
@@ -288,26 +288,27 @@ class _ReportIssueState extends State<ReportIssue> {
                     color: Colors.brown,
                     iconSize: 40.0,
 
-                    onPressed: () async {
+                    onPressed: ()  {
 
                       if(_submitted && _submitted2){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ReportImage()));
 
                         DateTime now = DateTime.now();
                         String date = DateFormat('dd-MM-yyyy').format(now);
-                        //
-                        // _addRequest(Request(
-                        //   date: date,
-                        //   location: locationAns,
-                        //   description: descriptionAns,
-                        //   image: 'assets/paint.jpg',
-                        //   category: categoryAns,
-                        // status: 1));
-                        //
+
+                         _addRequest(Request(
+                          date: date,
+                          location: locationAns,
+                          description: descriptionAns,
+                          image: 'assets/paint.jpg',
+                          category: categoryAns,
+                        status: 1));
+
 
                      _controller1.clear();
                      _controller2.clear();
                      _submitted = false;
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ReportImage()));
+
 
 
 

@@ -1,5 +1,5 @@
 
-
+import 'styles/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_stepper/easy_stepper.dart';
 import 'Request.dart';
@@ -84,14 +84,14 @@ class _ReportPageState extends State<ReportPage> {
   Widget RequestCard(category, date, location, index) {
     int activeStep = 0;
     return Container(
-      margin: const EdgeInsets.only(top:30),
+      margin: const EdgeInsets.only(top:30, left:10, right:10),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           boxShadow: const [
             BoxShadow(
               blurRadius: 16,
-              color: Colors.black12,
+              color: Colors.black26,
               offset: Offset(0, 10),
             ),
           ],
@@ -164,14 +164,15 @@ class _ReportPageState extends State<ReportPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text("Service Requests",style: TextStyle(color: Colors.brown, fontWeight: FontWeight.bold) ),
-        backgroundColor: Colors.yellow[800],
+          title: Text("Service Requests",style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold) ),
+        backgroundColor: AppColors.pink,
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () { Navigator.push(context, MaterialPageRoute(builder: (context)=>ReportIssue())); },
           child: Icon(Icons.report_gmailerrorred_rounded, color: Colors.white, size: 50.0),
-          backgroundColor: Colors.red,
+          backgroundColor: AppColors.pink,
         ),
 
          body: Column(children: <Widget> [Expanded(child: _buildRequestsList())],
