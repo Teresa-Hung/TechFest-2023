@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (docIDs.length != 0) {
       CollectionReference accounts =
           FirebaseFirestore.instance.collection('Accounts');
-      final snapshot = await accounts.doc(docIDs[1]).get();
+      final snapshot = await accounts.doc(docIDs[0]).get();
       final data = snapshot.data() as Map<String, dynamic>;
       user.exp = data['Experience'];
       print(user.exp);
@@ -194,7 +194,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               onPressed: () {},
                             )),
                         TextButton(
-                            onPressed: updateGrow, child: Text('Grow up!'))
+                            onPressed: () {
+                              updateGrow();
+                            },
+                            child: Text('Grow up!'))
                       ],
                     ),
                   ),
