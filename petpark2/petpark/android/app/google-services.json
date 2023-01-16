@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "556849184580",
+    "project_id": "petpark2",
+    "storage_bucket": "petpark2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:556849184580:android:512eb68a81b3a57a636111",
+        "android_client_info": {
+          "package_name": "com.example.petpark"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "556849184580-ujvvfl9lnuoa1guk52bfcjt8daq9qrne.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXrg27flxX71ekcnbtX5c9PqD5zkUcZnc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "556849184580-ujvvfl9lnuoa1guk52bfcjt8daq9qrne.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
