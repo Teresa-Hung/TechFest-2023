@@ -36,7 +36,7 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 class AccountData {
   late String petName;
   late int level;
-  late int exp;
+  int exp = 0;
 }
 
 class GetAccountInfo extends StatelessWidget {

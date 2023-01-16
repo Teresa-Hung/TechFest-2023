@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -32,18 +34,35 @@ class _HomeScreenState extends State<HomeScreen> {
     accounts.get().then((snapshot) => snapshot.docs.forEach((document) {
           print(document.reference.id);
           docIDs.add(document.reference.id);
-          Map<String, dynamic> data =
-              accounts.doc(docIDs[0]) as Map<String, dynamic>;
-          user.exp = data['Experience'];
         }));
   }
 
-  /*@override
-  void initState() {
-    getDocId();
-    print(docIDs.length);
-    super.initState();
-  }*/
+  void updateInfo() async {
+    if (docIDs.length != 0) {
+      CollectionReference accounts =
+          FirebaseFirestore.instance.collection('Accounts');
+      final snapshot = await accounts.doc(docIDs[1]).get();
+      final data = snapshot.data() as Map<String, dynamic>;
+      user.exp = data['Experience'];
+      print(user.exp);
+    }
+    if (user.exp >= 1000) {
+      grow = true;
+    }
+  }
+
+  void updateGrow() {
+    if (grow)
+      _triggerGrow();
+    else {
+      print("growing fails");
+      /*final snackBar = SnackBar(
+        content: const Text(
+            'Your kitten is still too small~ Gain 1000exp to make your cat grow!'),
+      );
+      Scaffold.of(context).showSnackBar(snackBar);*/
+    }
+  }
 
   void _onRiveInit(Artboard artboard) {
     final controller =
@@ -56,9 +75,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //AccountData accountData = AccountData();
-    //accountData.getAccountData();
-
     return MaterialApp(
       home: Scaffold(
           extendBodyBehindAppBar: true,
@@ -87,14 +103,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       margin: EdgeInsets.fromLTRB(10, 30, 10, 20),
                       padding: EdgeInsets.all(10),
                       color: AppColors.orange,
-                      child: /*const AccountDataB(userName: 'teresa'),*/
-                          FutureBuilder(
+                      child: FutureBuilder(
                         future: getDocId(),
                         builder: (context, snapshot) {
                           print(docIDs.length);
                           print(docIDs);
                           if (snapshot.connectionState ==
                               ConnectionState.done) {
+                            updateInfo();
                             return SizedBox(
                               width: 550,
                               height: 100,
@@ -178,7 +194,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               onPressed: () {},
                             )),
                         TextButton(
-                            onPressed: _triggerGrow, child: Text('Grow up!'))
+                            onPressed: updateGrow, child: Text('Grow up!'))
                       ],
                     ),
                   ),
@@ -191,13 +207,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       onInit: _onRiveInit,
                     ),
                   ),
-                  /*Container(
-                    margin: EdgeInsets.only(bottom: 10),
-                    child: Image.asset(
-                      'assets/cat2-2.png',
-                      height: 300,
-                    ),
-                  ),*/
                 ],
               ),
             ),
