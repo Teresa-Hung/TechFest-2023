@@ -8,6 +8,7 @@ Widget hdbIntroScreen() {
     width: Get.width,
     decoration: const BoxDecoration(
       image: DecorationImage(
+        opacity: 0.8,
         image: AssetImage('assets/background.png'),
         fit: BoxFit.cover,
       ),

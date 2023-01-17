@@ -36,6 +36,7 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 class AccountData {
   late String petName;
   late int level;
+  late String accountId;
   int exp = 0;
 }
 

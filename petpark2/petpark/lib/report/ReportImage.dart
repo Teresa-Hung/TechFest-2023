@@ -4,6 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
+import 'package:petpark/animation/home.dart';
 import 'ReportPage.dart';
 import 'package:petpark/styles/app_colors.dart';
 import 'package:get/get.dart';
@@ -77,7 +78,7 @@ class _ReportImageState extends State<ReportImage> {
           onPressed: () => valid
               ? Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => ReportPage()),
+                  MaterialPageRoute(builder: (context) => HomeScreen()),
                   (route) => false)
               : null,
         ),

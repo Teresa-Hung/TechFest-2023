@@ -28,25 +28,30 @@ class _HomeScreenState extends State<HomeScreen> {
   //StateMachineController? controller;
 
   // document IDs
-  List<String> docIDs = [];
+  static List<String> docIDs = [];
   AccountData user = AccountData();
   bool grow = false;
 
   Future getDocId() async {
-    CollectionReference accounts =
-        await FirebaseFirestore.instance.collection('Accounts');
+    var accounts = await FirebaseFirestore.instance
+        .collection('Accounts')
+        .get()
+        .then((snapshot) => snapshot.docs.forEach((document) {
+              print(document.reference.id);
+              docIDs.add(document.reference.id);
+            }));
+  }
 
-    accounts.get().then((snapshot) => snapshot.docs.forEach((document) {
-          print(document.reference.id);
-          docIDs.add(document.reference.id);
-        }));
+  void _InitState() {
+    getDocId();
+    super.initState();
   }
 
   void updateInfo() async {
     if (docIDs.length != 0) {
       CollectionReference accounts =
           FirebaseFirestore.instance.collection('Accounts');
-      final snapshot = await accounts.doc(docIDs[0]).get();
+      final snapshot = await accounts.doc(docIDs[1]).get();
       final data = snapshot.data() as Map<String, dynamic>;
       user.exp = data['Experience'];
       print(user.exp);
@@ -113,15 +118,17 @@ class _HomeScreenState extends State<HomeScreen> {
                         builder: (context, snapshot) {
                           print(docIDs.length);
                           print(docIDs);
+                          //Future.delayed(Duration(seconds: 2));
                           if (snapshot.connectionState ==
-                              ConnectionState.done) {
+                                  ConnectionState.done &&
+                              docIDs.length != 0) {
                             updateInfo();
                             return SizedBox(
                               width: 550,
                               height: 100,
                               child: GetAccountInfo(
                                   documentId: docIDs[
-                                      0]), /*Column(
+                                      1]), /*Column(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -139,6 +146,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ]),*/
                             );
                           }
+
                           return SizedBox(
                             width: 550,
                             height: 100,

@@ -21,9 +21,10 @@ class loginWidget extends StatelessWidget {
     TextEditingController _passwordController = TextEditingController();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Expanded(
-        child: Column(children: [
-          textWidget(text: AppConstants.helloNiceToMeetYou),
+      child: SingleChildScrollView(
+        padding: EdgeInsets.only(top: 100),
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          //textWidget(text: AppConstants.helloNiceToMeetYou),
           textWidget(
               text: AppConstants.welcome,
               fontSize: 22,
